@@ -4,20 +4,17 @@ import App from './App';
 import Form from './components/Form/Form';
 import {createTheme} from '@mui/material';
 import {ThemeProvider} from '@mui/styles';
+import { Provider } from 'react-redux';
+import {createStore, applyMiddleware ,compose} from 'redux';
+import thunk from 'redux-thunk'
+
+import reducers from './reducers';
+const store =createStore(reducers,compose(applyMiddleware(thunk)))
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <App/>
+  </Provider>,
 );
-
-
-const Root = () => {
-const theme = createTheme()
-    return (
-        <ThemeProvider theme={theme}>
-            <Form/>
-        </ThemeProvider>
- )}
-export default Root
